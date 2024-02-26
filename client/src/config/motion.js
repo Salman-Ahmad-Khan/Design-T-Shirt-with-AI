@@ -3,8 +3,8 @@ export const transition = { type: "spring", duration: 0.8 };
 export const slideAnimation = (direction) => {
   return {
     initial: {
-      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+      x: direction === "left" ? -500 : direction === "right" ? 500 : 0,
+      y: direction === "up" ? 500 : direction === "down" ? -500 : 0,
       opacity: 0,
       transition: { ...transition, delay: 0.5 },
     },
@@ -15,8 +15,8 @@ export const slideAnimation = (direction) => {
       transition: { ...transition, delay: 0 },
     },
     exit: {
-      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
-      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+      x: direction === "left" ? -500 : direction === "right" ? 500 : 0,
+      y: direction === "up" ? 500 : direction === "down" ? -500 : 0,
       transition: { ...transition, delay: 0 },
     },
   };
@@ -38,19 +38,19 @@ export const fadeAnimation = {
 };
 
 export const headTextAnimation = {
-  initial: { x: 100, opacity: 0 },
+  initial: { x: 500, opacity: 0 },
   animate: { x: 0, opacity: 1 },
   transition: {
     type: "spring",
     damping: 5,
     stiffness: 40,
     restDelta: 0.001,
-    duration: 0.3,
+    duration: 0.8,
   },
 };
 
 export const headContentAnimation = {
-  initial: { y: 100, opacity: 0 },
+  initial: { y: 500, opacity: 0 },
   animate: { y: 0, opacity: 1 },
   transition: {
     type: "spring",
@@ -64,7 +64,7 @@ export const headContentAnimation = {
 };
 
 export const headContainerAnimation = {
-  initial: { x: -100, opacity: 0, transition: { ...transition, delay: 0.5 } },
+  initial: { x: -500, opacity: 0, transition: { ...transition, delay: 0.5 } },
   animate: { x: 0, opacity: 1, transition: { ...transition, delay: 0 } },
-  exit: { x: -100, opacity: 0, transition: { ...transition, delay: 0 } },
+  exit: { x: -500, opacity: 0, transition: { ...transition, delay: 0 } },
 };

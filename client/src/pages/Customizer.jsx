@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 
-import config from "../config/config";
+
 import state from "../store";
 import { download } from "../assets";
 import { downloadCanvasToImage, reader } from "../config/helpers";
@@ -16,19 +16,47 @@ import {
   Tab,
 } from "../components";
 
+
+// Customizer component
 const Customizer = () => {
+
+
+
+
+  // Get the current state snapshot
   const snap = useSnapshot(state);
+
+  // State variables
   const [file, setFile] = useState("");
   const [prompt, setPrompt] = useState("");
   const [generatingImg, setGeneratingImg] = useState(false);
   const [activeEditorTab, setActiveEditorTab] = useState("");
   const [activeFilterTab, setActiveFilterTab] = useState({
-    logoShirt: false,
-    stylishShirt: true,
+    logoShirt: true,
+    stylishShirt: false,
   });
   const [showTooltip, setShowTooltip] = useState(false);
 
+  // Reference to the tab content ref
   const tabContentRef = useRef(null);
+
+  const [previewImage, setPreviewImage] = useState(null);
+  // handlePreview function
+
+  // const handlePreview = () => {
+  //   const canvas = document.querySelector("canvas");
+  //   if (canvas) {
+  //     setPreviewImage(canvas.toDataURL());
+  //   }
+  // };
+  const handlePreview = () => {
+    const canvas = document.querySelector("canvas");
+    setPreviewImage(canvas.toDataURL());
+  };
+
+
+
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -44,6 +72,7 @@ const Customizer = () => {
     };
   }, [activeEditorTab]);
 
+   // generateTabContent function
   const generateTabContent = () => {
     switch (activeEditorTab) {
       case "colorpicker":
@@ -64,13 +93,15 @@ const Customizer = () => {
     }
   };
 
+    // handleSubmit function
   const handleSubmit = async (type) => {
     if (!prompt) return alert("Please enter a prompt");
 
     try {
       setGeneratingImg(true);
 
-      const response = await fetch("http://localhost:8080/api/v1/dalle", {
+      const response = await fetch("https://fashionifyai.onrender.com/api/v1/dalle", {
+      
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,17 +121,20 @@ const Customizer = () => {
       setActiveEditorTab("");
     }
   };
-
+  
+// handleDecals function
   const handleDecals = (type, result) => {
     const decalType = DecalTypes[type];
 
     state[decalType.stateProperty] = result;
+
 
     if (!activeFilterTab[decalType.filterTab]) {
       handleActiveFilterTab(decalType.filterTab);
     }
   };
 
+  // handleActiveFilterTab function
   const handleActiveFilterTab = (tabName) => {
     switch (tabName) {
       case "logoShirt":
@@ -123,6 +157,7 @@ const Customizer = () => {
     });
   };
 
+  // readFile function
   const readFile = (type) => {
     reader(file).then((result) => {
       handleDecals(type, result);
@@ -130,167 +165,237 @@ const Customizer = () => {
     });
   };
 
+
   return (
     <AnimatePresence>
+    {/* Conditional rendering based on state */}
       {!snap.intro && (
         <>
-          <motion.div
-            key="custom"
-            className="absolute top-0 left-0 z-10"
-            {...slideAnimation("left")}
-          >
-            <div className="flex items-center min-h-screen">
-              <div className="editortabs-container tabs" ref={tabContentRef}>
-                {EditorTabs.map((tab) => (
-                  <Tab
-                    key={tab.name}
-                    tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
-                  />
-                ))}
-                {generateTabContent()}
-              </div>
-            </div>
+       
 
-            {/* <div className="flex items-center min-h-screen">
-  <div className="editortabs-container tabs" ref={tabContentRef}>
-    {EditorTabs.map((tab) => (
-      <div key={tab.name} className="icon-container" title={tab.name}>
+
+         <motion.div
+  key="custom"
+  className="absolute top-0 left-0 z-10"
+  {...slideAnimation("up")}
+>
+
+{/* Brand logo */}
+<motion.div
+  className="flex items-center "
+  {...slideAnimation("down")}
+>
+  <img
+    src="./brand-logo.png"
+    alt="logo"
+    loading="lazy"
+    className="absolute top-1 left-1 w-10 object-contain rounded bg-white"
+  />
+  <a
+    onClick={() => {
+        state.intro = true;
+      }} 
+    className="logo absolute z-10 top-2 left-12 cursor-pointer font-extrabold text-2xl"
+    style={{ color: snap.color }}
+  >
+    Fashionify.ai
+  </a>
+</motion.div>
+
+
+
+{/* Custom editor tabs */}
+  <div className="flex items-center min-h-screen">
+    <div className="editortabs-container tabs" ref={tabContentRef}>
+     {/* Mapping through editor tabs and rendering each */}
+      {EditorTabs.map((tab) => (
         <Tab
+          key={tab.name}
           tab={tab}
           handleClick={() => setActiveEditorTab(tab.name)}
         />
+      ))}
+      {/* Generating tab content based on active editor tab */}
+      {generateTabContent()}
+    </div>
+  </div>
+</motion.div>
+
+{/* Default colors */}
+<div className="customizer" >
+ {/* Color options */}
+  <motion.div className="color-options" {...slideAnimation("down")}>
+    {snap.colors.map((color) => (
+      <div
+        key={color}
+        className="circle"
+        style={{ background: color }}
+        onClick={() => (state.color = color)}
+      ></div>
+    ))}
+  </motion.div>
+
+  
+  {/* <div className="decals">
+  <div className="decals--container">
+    {snap.decals.map((decal) => (
+      <div key={decal} className="decal">
+        <img src={decal + '.png'} alt="brand" onClick={() => handleDecalClick(decal)} />
       </div>
     ))}
-    {generateTabContent()}
   </div>
 </div> */}
 
-          </motion.div>
 
-          {/* Logo and Logo Name */}
-          <motion.div
-            className="flex items-center absolute z-10 top-2 left-2"
-            {...fadeAnimation}
-          >
-            {/* <img
-              src="./threejs.png"
-              alt="logo"
-              className="w-12 h-12 object-contain mr-2"
-            /> */}
-            <a
-              href="#"
-              className="font-mono font-semibold text-xl"
-              style={{ color: snap.color }}
-            >
-              Fashionify.ai
-            </a>
-          </motion.div>
-{/* welcome  */}
-          {/* <p
-            className="container absolute top-1 text-center font-bold text-zinc-100 font-mono"
-            {...slideAnimation("down")}
-          >
-             Welcome to the T-shirt customization editor! 
-          </p> */}
+  
 
-          <motion.div
-            className="absolute z-10 top-8 right-2"
-            {...fadeAnimation}
-          >
-            <CustomButton
-              type="filled"
-              title="Go Back"
-              handleClick={() => (state.intro = true)}
-              customStyles="w-fit px-4 py-2.5 font-bold text-sm hover:scale-90 bg-gradient-to-tr from-yellow-300 to-red-500 inline-block animate-pulse"
-            />
-          </motion.div>
 
-          <motion.div
-            className="filtertabs-container"
-            {...slideAnimation("up")}
-          >
-            {FilterTabs.map((tab) => (
-              <Tab
-                key={tab.name}
-                tab={tab}
-                isFilterTab
-                isActiveTab={activeFilterTab[tab.name]}
-                handleClick={() => handleActiveFilterTab(tab.name)}
-                title={tab.name}
-              />
-            ))}
 
-            {/* {FilterTabs.map((tab) => (
-  <div key={tab.name} className="icon-container" title={tab.name}>
+</div>
+
+
+
+
+
+
+
+
+<motion.div
+  className="absolute z-10 top-2 right-2"
+  {...fadeAnimation}
+>
+ {/* Go Back button */}
+  <CustomButton
+    type="filled"
+    title="Go Back"
+    handleClick={() => (state.intro = true)}
+    customStyles="w-fit px-4 py-2.5 font-bold text-sm hover:scale-90 bg-gradient-to-tr from-red-500 to-pink-500 inline-block hover:text-indigo-500 font-mono"
+  />
+
+ {/* Preview button */}
+<button
+        className="w-10 absolute top-0 right-28 hover:scale-90  text-white tooltip tooltip-success tooltip-bottom"  data-tip="Preview"
+        
+        onClick={() => {
+    document.getElementById('my_modal_5').showModal();
+    handlePreview();
+  }}
+      >
+       <img
+    src="./preview.png"
+    alt="preview"
+    loading="lazy"
+    className="object-contain "
+    
+  />
+      </button>
+
+ {/* Preview modal */}
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Fashionify Preview</h3>
+          <button
+            className=" btn-sm btn-circle btn-ghost absolute top-6 right-4 btn bg-slate-600"
+            onClick={() => document.getElementById('my_modal_5').close()}
+          >
+            ✕
+          </button>
+          <div className="modal-content">
+            {previewImage && (
+              <img src={previewImage} alt="Preview" />
+            )}
+          </div>
+        </div>
+      </dialog>
+
+
+</motion.div>
+
+{/* Filter tabs */}
+<motion.div
+  className="filtertabs-container"
+  {...slideAnimation("up")}
+>
+  {FilterTabs.map((tab) => (
     <Tab
+      key={tab.name}
       tab={tab}
       isFilterTab
       isActiveTab={activeFilterTab[tab.name]}
       handleClick={() => handleActiveFilterTab(tab.name)}
+      title={tab.name}
+      tooltip={tab.tooltip}
     />
-  </div>
-))} */}
+  ))}
 
-            
-            <button
-              className="download-btn hover:scale-95"
-              onClick={downloadCanvasToImage}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
-              <span className="inline-block relative">
-                <img
-                  src={download}
-                  alt="download"
-                  className="object-contain"
-                />
-              </span>
-              {showTooltip && (
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/10 bg-green-500 text-white p-1 font-mono rounded-md opacity-100 animate-none">
-                  Download
-                </span>
-              )}
-            </button>
-          </motion.div>
+   {/* Download button */}
+  <button
+    className="download-btn hover:scale-95 tooltip tooltip-success" data-tip="Download"
+    onClick={downloadCanvasToImage}
+    
+  >
 
-          <motion.footer
-            className="absolute bottom-0 right-0 bg-gradient-to-r from-transparent via-yellow-500 to-transparent"
-            {...fadeAnimation}
-          >
-            <motion.div>
-              <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-200 p-1 mr-1">
-                © 2024{" "}
-                <a href="#" className="hover:underline">
-                  Fashionify.ai
-                </a>
-                . All Rights Reserved.{" "}
-                {/* <a
-                  href="mailto:connect.celman@gmail.com"
-                  className="underline decoration-1"
-                >
-                  Contact
-                </a> */}
 
-                <a
-  href="mailto:connect.celman@gmail.com"
-  className="hover:text-blue-400"
-  target="_blank"
-  title="Send email to connect.celman@gmail.com"
-  rel="nofollow"
-  aria-label="Contact us via email"
-  id="emailLink"
+
+    <span className="inline-block relative">
+      <img
+        src={download}
+        alt="download"
+        loading="lazy"
+        className="object-contain w-10"
+      />
+    </span>
+   
+  </button>
+</motion.div>
+
+
+
+
+
+
+
+ {/* Footer */}
+<motion.footer
+  className="fixed bottom-0 right-0 flex justify-end items-center bg-gradient-to-r from-transparent via-yellow-500 to-transparent mr-2"
+  {...fadeAnimation}
 >
-  Contact
-</a>
+  <span className="text-xs text-gray-500 dark:text-gray-200">
+    © 2024{" "}
+    <a
+      onClick={() => { state.intro = true; }}
+      className="hover:underline"
+    >
+      Fashionify.ai
+    </a>{" "}
+    All Rights Reserved{" "}
+    <a
+      href="mailto:connect.celman@gmail.com"
+      className="hover:text-blue-400"
+      target="_blank"
+      title="Send email to connect.celman@gmail.com"
+      rel="nofollow"
+      aria-label="Contact us via email"
+      id="emailLink2"
+    >
+      Contact
+    </a>
+  </span>
+</motion.footer>
 
-              </span>
-            </motion.div>
-          </motion.footer>
+
+
+
+
+
+
+
         </>
       )}
     </AnimatePresence>
   );
+  
 };
 
 export default Customizer;
+

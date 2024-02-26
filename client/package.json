@@ -12,12 +12,14 @@
   "dependencies": {
     "@react-three/drei": "^9.93.0",
     "@react-three/fiber": "^8.15.13",
+    "aos": "^2.3.4",
     "framer-motion": "^10.17.9",
     "maath": "^0.10.7",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-router-dom": "^6.22.1",
     "three": "^0.160.0",
     "valtio": "^1.13.0"
   },

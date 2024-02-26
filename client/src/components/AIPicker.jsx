@@ -10,29 +10,7 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
 
   return (
     <div className="aipicker-container">
-      {/* <textarea 
-        placeholder={`Ask AI...\ne.g A futuristic cityscape with vibrant colors on a T-shirt`}
-        rows={5}
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        className="aipicker-textarea placeholder:italic placeholder:text-white"
-      /> */}
-
-      {/* <textarea
-  placeholder={`Ask AI...\ne.g A futuristic cityscape with vibrant colors on a T-shirt`}
-  rows={5}
-  value={prompt}
-  onChange={(e) => setPrompt(e.target.value)}
-  className="aipicker-textarea placeholder:italic placeholder:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-/>
-<label
-  className={`absolute top-0 right-0 p-1 text-gray-100 pointer-events-none ${
-    prompt ? "opacity-100" : "opacity-0"
-  } transition-opacity duration-300`}
->
-  Ask AI...
-</label> */}
-
+     {/* Textarea for user input */}
       <textarea
         placeholder={`e.g A futuristic cityscape with vibrant colors on a T-shirt`}
         rows={5}
@@ -40,6 +18,7 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
         onChange={(e) => setPrompt(e.target.value)}
         className="aipicker-textarea placeholder:italic placeholder:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
       />
+       {/* Label for textarea */}
       <label
         className={`absolute top-0 left-1/2 font-mono text-nowrap text-xs transform -translate-x-1/2 -translate-y-1/2 p-1 text-gray-100 pointer-events-none ${
           prompt ? "opacity-100" : "opacity-0"
@@ -50,6 +29,7 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
         Describe your dream T-shirt design
       </label>
 
+ {/* Buttons for generating AI-based designs */}
       <div className="flex flex-wrap gap-3">
         {generatingImg ? (
           <CustomButton
@@ -61,13 +41,14 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
           />
         ) : (
           <>
+          {/* Button for generating AI-based logo */}
             <CustomButton
               type="outline"
               title="AI Logo"
               handleClick={() => handleSubmit("logo")}
               customStyles="text-xs font-bold font-mono hover:scale-90 bg-gradient-to-tl"
             />
-
+  {/* Button for generating AI-based full design */}
             <CustomButton
               type="filled"
               title="AI Full"
