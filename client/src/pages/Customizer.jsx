@@ -35,7 +35,7 @@ const Customizer = () => {
     logoShirt: true,
     stylishShirt: false,
   });
-  const [showTooltip, setShowTooltip] = useState(false);
+ 
 
   // Reference to the tab content ref
   const tabContentRef = useRef(null);
@@ -313,7 +313,7 @@ const Customizer = () => {
 
 {/* Filter tabs */}
 <motion.div
-  className="filtertabs-container"
+  className="filtertabs-container mb-4"
   {...slideAnimation("up")}
 >
   {FilterTabs.map((tab) => (
@@ -356,22 +356,22 @@ const Customizer = () => {
 
 
  {/* Footer */}
+
 <motion.footer
   className="fixed bottom-0 right-0 flex justify-end items-center bg-gradient-to-r from-transparent via-yellow-500 to-transparent mr-2"
   {...fadeAnimation}
 >
   <span className="text-xs text-gray-500 dark:text-gray-200">
-    © 2024{" "}
     <a
       onClick={() => { state.intro = true; }}
       className="hover:underline"
     >
       Fashionify.ai
-    </a>{" "}
-    All Rights Reserved{" "}
+    </a>
+    © 2024 All Rights Reserved
     <a
       href="mailto:connect.celman@gmail.com"
-      className="hover:text-blue-400"
+      className="hover:text-blue-400 ml-2"
       target="_blank"
       title="Send email to connect.celman@gmail.com"
       rel="nofollow"
@@ -382,6 +382,7 @@ const Customizer = () => {
     </a>
   </span>
 </motion.footer>
+
 
 
 

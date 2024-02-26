@@ -23,6 +23,15 @@ import {
 /* ------------------- Component Home ------------------- */
 
 const Home = () => {
+
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Initialize state and effects
   useEffect(() => {
     // Handle checkboxes for FAQ section
@@ -63,7 +72,7 @@ const Home = () => {
     <AnimatePresence>
       {/* Render components based on state */}
       {snap.intro && (
-        <section className="home">
+        <section className="home" id="home">
           {/* Header section */}
           <header {...slideAnimation("down")}>
             {/* Logo image */}
@@ -85,6 +94,8 @@ const Home = () => {
           </header>
 
         
+        
+
 
 
 
@@ -139,7 +150,7 @@ const Home = () => {
             {...headContainerAnimation}
           >
             {/* Title text */}
-             <motion.div {...headTextAnimation}>
+             <motion.div {...headTextAnimation} >
               <h1 className="head-text text-center font-extrabold bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 bg-clip-text text-transparent">
                From Imagination to Fashion
                </h1>
@@ -150,6 +161,9 @@ const Home = () => {
               className="bg-gradient-to-br from-transparent via-orange-950 to-transparent absolute left-0 mockup-code hidden lg:block xl:block -translate-x-16 translate-y-12 transition duration-1000 cursor-pointer hover:glass"
               {...slideAnimation("left")}
             >
+              <pre data-prefix="" className="text-opacity-60  text-white">
+                <code>Key Design Features</code>
+              </pre>
               <pre data-prefix="✅" className="text-green-400">
                 <code>AI infused style</code>
               </pre>
@@ -235,8 +249,9 @@ const Home = () => {
               </a>
 
               <a
-                href="#whyus"
-                className="flex flex-row items-center justify-center rounded-2xl border px-10 py-3 text-white text-xl hover:scale-95 text-nowrap"
+                // href="#how-it-works"
+                onClick={() => scrollToSection('how-it-works')}
+                className="flex flex-row items-center justify-center rounded-2xl border px-10 py-3 text-white text-xl hover:scale-95 text-nowrap cursor-pointer"
               >
                 Learn More
                 {/* Arrow icon */}
@@ -420,13 +435,13 @@ const Home = () => {
             />
 
             {/* Section for explaining how the service works in steps*/}
-            <section id="whyus" className=" mt-52">
+            <section id="how-it-works" className=" mt-52">
               {/* Title for the section */}
               <p data-aos="zoom-in" data-aos-duration="2000" className="font-bold italic text-4xl text-green-500">
                 How it works
               </p>
               {/* Container for the steps */}
-              <motion.section className="whyus bg-transparent rounded-2xl ">
+              <motion.section className="how-it-works bg-transparent rounded-2xl ">
                 <motion.div className="container px-5 py-10 mx-auto flex flex-wrap">
                   {/*  Individual step container */}
                   <motion.div className="flex relative pt-5 pb-20 sm:items-center md:w-2/3 mx-auto">
@@ -599,6 +614,9 @@ const Home = () => {
             </a>
           </div>
           
+
+
+         
 
           {/*  Frequently Asked Questions */}
           <section id="faq" className="faq bg-transparent rounded-md mt-52 p-2">
@@ -786,21 +804,25 @@ const Home = () => {
                   </div>
                   <ul className="leading-8">
                     <li>
-                      <a href="#" className="hover:text-blue-400">
+                      <a onClick={() => scrollToSection('home')} className="hover:text-blue-400 cursor-pointer">
                         About Us
                       </a>
                     </li>
                     <li>
-                      <a href="#whyus" className="hover:text-blue-400">
+                      <a onClick={() => scrollToSection('how-it-works')} className="hover:text-blue-400 cursor-pointer">
                         How it works
                       </a>
                     </li>
                     <li>
-                      <a href="#faq" className="hover:text-blue-400">
+                      <a onClick={() => scrollToSection('faq')} className="hover:text-blue-400 cursor-pointer">
                         FAQs
                       </a>
                     </li>
-                    <li></li>
+                    <li>
+                    <a onClick={() => scrollToSection('features')} className="hover:text-blue-400 cursor-pointer">
+                        Features
+                      </a>
+                    </li>
                   </ul>
                 </div>
                 {/* Column for contact information */}
@@ -861,10 +883,10 @@ const Home = () => {
             {/*  Container for copyright and credits */}
             <div className="container mx-auto mb-10">
               <div className="-mx-4 flex flex-wrap justify-between">
-                <div className="px-4 w-full text-center sm:w-auto sm:text-left">
-                  Copyright © 2024. All Rights Reserved.
+                <div className="px-4 w-full text-center sm:w-auto sm:text-left text-xs">
+                  Copyright © 2024 | All Rights Reserved.
                 </div>
-                <div className="px-4 w-full text-center sm:w-auto sm:text-left">
+                <div className="px-4 w-full text-center sm:w-auto sm:text-left text-xs">
                   Made with ❤️ by
                   Fashionify.
                 </div>
