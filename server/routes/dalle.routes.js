@@ -1,20 +1,27 @@
 import express from 'express';
-import * as dotenv from 'dotenv';
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const router = express.Router();
-
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
-router.route('/').get((req, res) => {
-  res.status(200).json({ message: "Hello there from DALL.E ROUTES" });
+// Error handling middleware
+router.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal Server Error' });
 });
 
-router.route('/').post(async (req, res) => {
+// DALL-E route
+router.post('/', async (req, res) => {
   try {
     const { prompt } = req.body;
+
+    // Input validation
+    if (!prompt) {
+      return res.status(400).json({ message: "Prompt is required" });
+    }
 
     const response = await openai.images.generate({
       prompt,
@@ -28,13 +35,11 @@ router.route('/').post(async (req, res) => {
 
     const imageData = response.data?.[0];
     if (imageData && imageData.b64_json) {
-        const image = imageData.b64_json;
-        
-
-        res.status(200).json({ photo: image });
+      const image = imageData.b64_json;
+      res.status(200).json({ photo: image });
     } else {
-        console.error("Image data is undefined or in unexpected format.");
-        res.status(500).json({ message: "Image data is undefined or in unexpected format." });
+      console.error("Image data is undefined or in unexpected format.");
+      res.status(500).json({ message: "Image data is undefined or in unexpected format." });
     }
   } catch (error) {
     console.error('Error:', error);
