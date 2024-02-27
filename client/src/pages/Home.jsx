@@ -79,7 +79,7 @@ const Home = () => {
             <img
               src="./brand-logo.png"
               alt="logo"
-              loading="lazy"
+             
               className="absolute top-1 left-1 w-10 object-contain bg-white rounded"
             />
             {/* Link to home page */}

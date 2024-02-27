@@ -188,7 +188,7 @@ const Customizer = () => {
   <img
     src="./brand-logo.png"
     alt="logo"
-    loading="lazy"
+    
     className="absolute top-1 left-1 w-10 object-contain rounded bg-white"
   />
   <a
@@ -366,9 +366,9 @@ const Customizer = () => {
       onClick={() => { state.intro = true; }}
       className="hover:underline"
     >
-      Fashionify.ai
+      Fashionify.ai &nbsp;
     </a>
-    © 2024 All Rights Reserved
+     © 2024 All Rights Reserved
     <a
       href="mailto:connect.celman@gmail.com"
       className="hover:text-blue-400 ml-2"

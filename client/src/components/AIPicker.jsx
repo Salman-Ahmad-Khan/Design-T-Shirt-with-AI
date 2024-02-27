@@ -12,7 +12,7 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
     <div className="aipicker-container">
      {/* Textarea for user input */}
       <textarea
-        placeholder={`e.g A futuristic cityscape with vibrant colors on a T-shirt`}
+        placeholder={`A futuristic cityscape with vibrant colors on a T-shirt`}
         rows={5}
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
