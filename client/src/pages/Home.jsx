@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
 import state from "../store";
 import { FaXTwitter } from "react-icons/fa6";
 
 // Import script, styles and initialize AOS:
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import AOS from "aos";
+import "aos/dist/aos.css";
 AOS.init();
 
 // Import custom components and animations
@@ -19,17 +19,110 @@ import {
   slideAnimation,
 } from "../config/motion";
 
-
 /* ------------------- Component Home ------------------- */
 
 const Home = () => {
-
-
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  // Handle form submission
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  useEffect(() => {
+    // Load saved user data from localStorage if available
+    const savedName = localStorage.getItem("name");
+    const savedEmail = localStorage.getItem("email");
+    if (savedName && savedEmail) {
+      setName(savedName);
+      setEmail(savedEmail);
+    }
+  }, []);
+
+  const handleStartDesigning = () => {
+    // Clear error messages when modal is opened
+    setNameError("");
+    setEmailError("");
+    // Open the modal
+    document.getElementById("my_modal_1").showModal();
+  };
+
+  const handleModalClose = (event) => {
+    // Check if the close button triggered the event
+    if (event && event.target.tagName === "BUTTON") {
+      // Prevent the default form submission only if the close button is clicked
+      event.preventDefault();
+    }
+    // Clear error messages when modal is closed
+    setNameError("");
+    setEmailError("");
+    // Close the modal
+    document.getElementById("my_modal_1").close();
+  };
+
+  const handleNameChange = (e) => {
+    // Clear name error message when user starts typing in the name field
+    if (nameError) {
+      setNameError("");
+    }
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    // Clear email error message when user starts typing in the email field
+    if (emailError) {
+      setEmailError("");
+    }
+    setEmail(e.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+
+    if (name.trim() === "") {
+      setNameError("Name is required.");
+      isValid = false;
+    }
+
+    if (email.trim() === "") {
+      setEmailError("Email is required.");
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      isValid = false;
+    }
+
+    if (isValid) {
+      // Here you can perform any action with the name and email inputs
+      console.log("Name:", name);
+      console.log("Email:", email);
+
+      // Save user data to localStorage
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+
+      // Clear the form fields only after successful submission and data storage
+      // setName('');
+      // setEmail('');
+
+      // Close the modal after submission
+      handleModalClose();
+      // Navigate to the desired page
+      state.intro = false; // Assuming state is accessible here
+    }
+  };
+
+  // Function to validate email format
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   // Initialize state and effects
@@ -65,21 +158,17 @@ const Home = () => {
   // Get current state snapshot
   const snap = useSnapshot(state);
 
-
-  
-
   return (
     <AnimatePresence>
       {/* Render components based on state */}
       {snap.intro && (
-        <section className="home" id="home">
+        <section className="home w-screen" id="home">
           {/* Header section */}
           <header {...slideAnimation("down")}>
             {/* Logo image */}
             <img
               src="./brand-logo.png"
               alt="logo"
-             
               className="absolute top-1 left-1 w-10 object-contain bg-white rounded"
             />
             {/* Link to home page */}
@@ -93,37 +182,31 @@ const Home = () => {
             </a>
           </header>
 
-        
-        
-
-
-
-
           {/* Announement, visible only for large screens*/}
           <div className="hidden sm:block md:block lg:block xl:block">
             <a
-              onClick={() => {
-                state.intro = false;
-              }}
+              onClick={handleStartDesigning}
               className="mx-auto fixed top-4 left-1/2 transform -translate-x-1/2 flex items-center justify-center overflow-hidden rounded-full glassmorphism px-4 py-2 transition-all hover:scale-95 cursor-pointer text-blue-100 glass hover:text-blue-200 hover:glass"
             >
               <span className="flex rounded-full bg-gradient-to-r from-red-500 via-red-500 to-red-500 uppercase px-2 py-1 text-xs font-bold mr-1 font-mono text-white">
                 New
               </span>
               <svg
-  className="w-6 h-6"
-  aria-hidden="true"
-  xmlns="http://www.w3.org/2000/svg"
-  fill="currentColor"
-  viewBox="0 0 18 19"
->
-  <path d="M15 1.943v12.114a1 1 0 0 1-1.581.814L8 11V5l5.419-3.871A1 1 0 0 1 15 1.943ZM7 4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V4ZM4 17v-5h1v5H4ZM16 5.183v5.634a2.984 2.984 0 0 0 0-5.634Z" />
-</svg>
+                className="w-6 h-6"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 18 19"
+              >
+                <path d="M15 1.943v12.114a1 1 0 0 1-1.581.814L8 11V5l5.419-3.871A1 1 0 0 1 15 1.943ZM7 4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V4ZM4 17v-5h1v5H4ZM16 5.183v5.634a2.984 2.984 0 0 0 0-5.634Z" />
+              </svg>
 
-              <p className="text-sm  text-nowrap">&nbsp;
-              Introducing our brand new tool,&nbsp; 
-              <span className="text-blue-600 underline dark:text-blue-500 underline-offset-2 decoration-600 dark:decoration-500 decoration-solid hover:no-underline">check it out here</span>.
-
+              <p className="text-sm  text-nowrap">
+                &nbsp; Introducing our brand new tool,&nbsp;
+                <span className="text-blue-600 underline dark:text-blue-500 underline-offset-2 decoration-600 dark:decoration-500 decoration-solid hover:no-underline">
+                  check it out here
+                </span>
+                .
               </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -142,18 +225,16 @@ const Home = () => {
             </a>
           </div>
 
-
-
           {/* Main content section */}
           <motion.div
             className="home-content relative flex w-full flex-col items-center sm:mt-16"
             {...headContainerAnimation}
           >
             {/* Title text */}
-             <motion.div {...headTextAnimation} >
+            <motion.div {...headTextAnimation}>
               <h1 className="head-text text-center font-extrabold bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 bg-clip-text text-transparent">
-               From Imagination to Fashion
-               </h1>
+                From Imagination to Fashion
+              </h1>
             </motion.div>
 
             {/* Mockup section */}
@@ -195,18 +276,7 @@ const Home = () => {
               <div className="divider"></div>
               {/* Try Fashionify call-to-action button*/}
               <pre data-prefix="" className="text-info">
-                <code>
-                  Try{" "}
-                  <a
-                    className="link hover:text-blue-500"
-                    onClick={() => {
-                      state.intro = false;
-                    }}
-                  >
-                    Fashionify
-                  </a>{" "}
-                  and
-                </code>
+                <code>Try Fashionify now and</code>
               </pre>
               <pre data-prefix="" className="text-orange-500">
                 <code>Apply your own design decisions!</code>
@@ -228,7 +298,7 @@ const Home = () => {
                 </span>{" "}
                 customization. Discover fashion that's uniquely yours.
                 <p className="text-blue-500 md:text-green-400 text-base font mt-4 text-nowrap xs:text-blue-500">
-                  Free, no signups, no credit cards.
+                  Free, no credit cards.
                 </p>
               </span>
             </motion.div>
@@ -238,19 +308,144 @@ const Home = () => {
               className="mt-10 mb-20 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-0 sm:gap-x-4"
               {...headContentAnimation}
             >
-              <a
+              {/* <a
                 onClick={() => {
                   state.intro = false;
                 }}
                 className="card shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
               >
-                {/* Get Started Free */}
+               
+                Start Designing Free
+              </a> */}
+
+              <a
+                onClick={handleStartDesigning}
+                className="card shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
+              >
                 Start Designing Free
               </a>
 
+              {/* Modal for signup */}
+              <dialog id="my_modal_1" className="modal">
+                <div className="modal-box">
+                  <header className="mb-10 flex justify-center items-center">
+                    {/* Logo image */}
+
+                    <img
+                      src="./brand-logo.png"
+                      alt="logo"
+                      className="w-10 object-contain"
+                    />
+                    {/* Link to home page */}
+                    <a className="logo text-2xl font-thin text-white cursor-pointer">
+                      Fashionify.ai
+                    </a>
+                  </header>
+
+                  <form
+                    onSubmit={handleFormSubmit}
+                    className="max-w-sm mx-auto"
+                  >
+                    <div className="mb-4 mt-4">
+                      {/* <label htmlFor="name" className="block text-gray-700">
+                        Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={handleNameChange}
+                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      /> */}
+
+                      <label
+                        htmlFor="name"
+                        className=" input input-bordered flex items-center gap-2"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          className="w-4 h-4 opacity-70"
+                        >
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                        </svg>
+                        <input
+                          type="text"
+                          id="name"
+                          value={name}
+                          onChange={handleNameChange}
+                          className="grow"
+                          placeholder="Name"
+                        />
+                      </label>
+
+                      {nameError && (
+                        <p className="mt-1 text-sm text-red-500">{nameError}</p>
+                      )}
+                    </div>
+                    <div className="mb-4">
+                      {/* <label htmlFor="email" className="block text-gray-700">
+                        Email:
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      /> */}
+
+                      <label
+                        htmlFor="name"
+                        className="input input-bordered flex items-center gap-2"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          className="w-4 h-4 opacity-70"
+                        >
+                          <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                          <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+                        </svg>
+                        <input
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={handleEmailChange}
+                          className="grow"
+                          placeholder="Email"
+                        />
+                      </label>
+
+                      {emailError && (
+                        <p className="mt-1 text-sm text-red-500">
+                          {emailError}
+                        </p>
+                      )}
+                    </div>
+                    <div className="modal-action flex justify-between">
+                      <button
+                        onClick={(event) => handleModalClose(event)}
+                        className="px-4 py-2  border border-slate-200 rounded-md  text-gray-100 hover:border-red-500"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-white hover:bg-green-700 "
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
+
               <a
                 // href="#how-it-works"
-                onClick={() => scrollToSection('how-it-works')}
+                onClick={() => scrollToSection("how-it-works")}
                 className="flex flex-row items-center justify-center rounded-2xl border px-10 py-3 text-white text-xl hover:scale-95 text-nowrap cursor-pointer"
               >
                 Learn More
@@ -273,16 +468,8 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-         
- 
- 
-
-
-
-
-
           {/* Carousel section, only visible to sm */}
- {/* <section className="carousel carousel-center  p-4 space-x-4  rounded-box">
+          {/* <section className="carousel carousel-center  p-4 space-x-4  rounded-box">
 
   <div className="carousel-item">
     <img src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg" className="rounded-box" />
@@ -309,21 +496,32 @@ const Home = () => {
 
 </section> */}
 
-
           {/* Features section */}
           <div className="home-content mt-10">
             <div className="bg-transparent mt-32" id="whywe">
               <section id="features" className="relative block ">
                 <div className="relative mx-auto max-w-5xl text-center">
                   {/* Title text */}
-                  <span data-aos="zoom-in" data-aos-duration="1000" className="text-green-500 my-3 flex items-center justify-center font-bold uppercase tracking-wider text-2xl overflow-x-hidden">
+                  <span
+                    data-aos="zoom-in"
+                    data-aos-duration="1000"
+                    className="text-green-500 my-3 flex items-center justify-center font-bold uppercase tracking-wider text-2xl overflow-x-hidden"
+                  >
                     Why choose us
                   </span>
-                  <h2 data-aos="fade-down" data-aos-duration="1500" className="block w-full bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl overflow-x-hidden">
+                  <h2
+                    data-aos="fade-down"
+                    data-aos-duration="1500"
+                    className="block w-full bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl overflow-x-hidden"
+                  >
                     Create Customized T-shirt Designs You Adore
                   </h2>
                   {/* Description text */}
-                  <p data-aos="fade-up-left" data-aos-duration="1200" className="mx-auto my-4 w-full max-w-xl bg-transparent text-center tracking-wide text-gray-400 overflow-x-hidden">
+                  <p
+                    data-aos="fade-up-left"
+                    data-aos-duration="1200"
+                    className="mx-auto my-4 w-full max-w-xl bg-transparent text-center tracking-wide text-gray-400 overflow-x-hidden"
+                  >
                     Our AI-powered 3D platform offers unparalleled
                     customization. Zero technical expertise needed – our
                     user-friendly design tools streamline the process
@@ -332,7 +530,11 @@ const Home = () => {
                 </div>
                 <div className="relative mx-auto max-w-7xl z-10 grid grid-cols-1 gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-3">
                   {/* Feature card 1 */}
-                  <div data-aos="zoom-in-right" data-aos-duration="3000" className="rounded-md border border-neutral-500 bg-gradient-to-bl from-transparent via-pink-900 to-transparent overflow-x-hidden p-8 text-center shadow transition duration-1000 cursor-pointer hover:glass hover:-translate-y-3">
+                  <div
+                    data-aos="zoom-in-right"
+                    data-aos-duration="3000"
+                    className="rounded-md border border-neutral-500 bg-gradient-to-bl from-transparent via-pink-900 to-transparent overflow-x-hidden p-8 text-center shadow transition duration-1000 cursor-pointer hover:glass hover:-translate-y-3"
+                  >
                     <div className="button-text mx-auto flex items-center justify-center rounded-md ">
                       {/* Feature image */}
                       <img
@@ -353,7 +555,11 @@ const Home = () => {
                     </p>
                   </div>
                   {/* Feature card 2 */}
-                  <div data-aos="zoom-out-down" data-aos-duration="3000" className="rounded-md border border-neutral-500 bg-gradient-to-br from-transparent via-orange-900 to-transparent p-8 text-center shadow transition duration-1000 cursor-pointer overflow-x-hidden hover:glass hover:-translate-y-3">
+                  <div
+                    data-aos="zoom-out-down"
+                    data-aos-duration="3000"
+                    className="rounded-md border border-neutral-500 bg-gradient-to-br from-transparent via-orange-900 to-transparent p-8 text-center shadow transition duration-1000 cursor-pointer overflow-x-hidden hover:glass hover:-translate-y-3"
+                  >
                     <div className="button-text mx-auto flex  items-center justify-center rounded-md ">
                       {/* Feature image */}
                       <img
@@ -374,7 +580,11 @@ const Home = () => {
                     </p>
                   </div>
                   {/* Feature card 2 */}
-                  <div data-aos="zoom-in-left" data-aos-duration="3000" className="rounded-md border border-neutral-500 bg-gradient-to-br from-transparent via-green-700 to-transparent p-8 text-center shadow transition duration-1000 cursor-pointer overflow-x-hidden hover:glass hover:-translate-y-3">
+                  <div
+                    data-aos="zoom-in-left"
+                    data-aos-duration="3000"
+                    className="rounded-md border border-neutral-500 bg-gradient-to-br from-transparent via-green-700 to-transparent p-8 text-center shadow transition duration-1000 cursor-pointer overflow-x-hidden hover:glass hover:-translate-y-3"
+                  >
                     <div className="button-text mx-auto flex  items-center justify-center rounded-md  ">
                       {/* Feature image */}
                       <img
@@ -399,8 +609,8 @@ const Home = () => {
             </div>
 
             {/* Try Fashionify call-to-action button*/}
-          
-            <a data-aos="fade-right"
+
+            {/* <a data-aos="fade-right"
               onClick={() => {
                 state.intro = false;
               }}
@@ -423,11 +633,18 @@ const Home = () => {
                 <path d="M22.21,48.13c-2.37,7.41-14.1,7.78-14.1,7.78S8,44.51,15.76,41.67" />
               </svg>
               Launch Editor
+            </a> */}
+
+            <a
+              onClick={handleStartDesigning}
+              className="card w-fit shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap mt-8"
+            >
+              Get Started
             </a>
-           
-           
+
             <img
-            data-aos="zoom-in-down" data-aos-duration="3000"
+              data-aos="zoom-in-down"
+              data-aos-duration="3000"
               src="./work.svg"
               alt="working"
               loading="lazy"
@@ -435,13 +652,17 @@ const Home = () => {
             />
 
             {/* Section for explaining how the service works in steps*/}
-            <section id="how-it-works" className=" mt-52">
+            <section id="how-it-works" className="mt-52">
               {/* Title for the section */}
-              <p data-aos="zoom-in" data-aos-duration="2000" className="font-bold italic text-4xl text-green-500">
+              <p
+                data-aos="zoom-in"
+                data-aos-duration="2000"
+                className="font-bold italic text-4xl text-green-500"
+              >
                 How it works
               </p>
               {/* Container for the steps */}
-              <motion.section className="how-it-works bg-transparent rounded-2xl ">
+              <motion.section className="bg-transparent rounded-2xl ">
                 <motion.div className="container px-5 py-10 mx-auto flex flex-wrap">
                   {/*  Individual step container */}
                   <motion.div className="flex relative pt-5 pb-20 sm:items-center md:w-2/3 mx-auto">
@@ -471,15 +692,16 @@ const Home = () => {
                         {/* Step title  */}
                         <h2
                           className="font-semibold text-gray-300 mb-1 text-xl overflow-x-hidden"
-                          data-aos="zoom-in-up" data-aos-duration="1000"
+                          data-aos="zoom-in-up"
+                          data-aos-duration="1000"
                         >
                           AI-Generated Designs
                         </h2>
                         {/* Step description  */}
                         <p
                           className=" text-gray-400 overflow-x-hidden"
-
-                          data-aos="zoom-out-up" data-aos-duration="3000"
+                          data-aos="zoom-out-up"
+                          data-aos-duration="3000"
                         >
                           Let AI create personalized designs based on your
                           prompts. Simply enter your preferences, and watch the
@@ -511,11 +733,19 @@ const Home = () => {
                       </motion.div>
                       <motion.div className="flex-grow mt-6">
                         {/* Step title  */}
-                        <h2 className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl" data-aos="zoom-in-up" data-aos-duration="1000">
+                        <h2
+                          className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl"
+                          data-aos="zoom-in-up"
+                          data-aos-duration="1000"
+                        >
                           Choose Your Colors
                         </h2>
                         {/* Step description  */}
-                        <p className=" text-gray-400 overflow-x-hidden"  data-aos="zoom-out-down" data-aos-duration="3000">
+                        <p
+                          className=" text-gray-400 overflow-x-hidden"
+                          data-aos="zoom-out-down"
+                          data-aos-duration="3000"
+                        >
                           Select or experiment with a wide range of colors to
                           set the perfect tone for your T-shirt.
                         </p>
@@ -545,11 +775,19 @@ const Home = () => {
                       </motion.div>
                       <motion.div className="flex-grow mt-6">
                         {/* Step title  */}
-                        <h2 className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl" data-aos="zoom-in-up" data-aos-duration="1000">
+                        <h2
+                          className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl"
+                          data-aos="zoom-in-up"
+                          data-aos-duration="1000"
+                        >
                           Upload Your Own Design
                         </h2>
                         {/* Step description  */}
-                        <p className=" text-gray-400 overflow-x-hidden"  data-aos="zoom-out-right" data-aos-duration="3000">
+                        <p
+                          className=" text-gray-400 overflow-x-hidden"
+                          data-aos="zoom-out-right"
+                          data-aos-duration="3000"
+                        >
                           Have a special design in mind? Upload your own artwork
                           and see it seamlessly integrated into your T-shirt.
                         </p>
@@ -579,11 +817,19 @@ const Home = () => {
                       </motion.div>
                       <motion.div className="flex-grow mt-6">
                         {/* Step title  */}
-                        <h2 className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl" data-aos="zoom-in-up" data-aos-duration="1000">
+                        <h2
+                          className="font-semibold overflow-x-hidden text-gray-300 mb-1 text-xl"
+                          data-aos="zoom-in-up"
+                          data-aos-duration="1000"
+                        >
                           Save Your Masterpiece
                         </h2>
                         {/* Step description  */}
-                        <p  data-aos="zoom-out-left" data-aos-duration="3000" className="overflow-x-hidden text-gray-400">
+                        <p
+                          data-aos="zoom-out-left"
+                          data-aos-duration="3000"
+                          className="overflow-x-hidden text-gray-400"
+                        >
                           Once you're satisfied with your creation, hit the
                           download button to save your custom-designed T-shirt.
                         </p>
@@ -594,16 +840,19 @@ const Home = () => {
               </motion.section>
             </section>
 
-
             {/* Text encouraging users to utilize the 3D preview feature */}
-            <p data-aos="fade-up-left" data-aos-duration="3000" className="overflow-x-hidden mt-4 mb-8 text-xl text-gray-200">
+            <p
+              data-aos="fade-up-left"
+              data-aos-duration="3000"
+              className="overflow-x-hidden mt-4 mb-8 text-xl text-gray-200"
+            >
               Explore the 3D preview to see how your design looks on an actual
               T-shirt. Get started now and make a statement with your
               one-of-a-kind T-shirt!
             </p>
 
             {/* Try Fashionify call-to-action button*/}
-            <a
+            {/* <a
             data-aos="fade-right" data-aos-duration="2500"
               onClick={() => {
                 state.intro = false;
@@ -611,17 +860,24 @@ const Home = () => {
               className="card w-fit flex flex-row items-center justify-center gap-x-2 rounded-lg text-white px-10 py-3 hover:scale-95  cursor-pointer text-xl"
             >
               Get Started Free
+            </a> */}
+
+            <a
+              onClick={handleStartDesigning}
+              className="card w-fit shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
+            >
+              Start Designing Free
             </a>
           </div>
-          
-
-
-         
 
           {/*  Frequently Asked Questions */}
           <section id="faq" className="faq bg-transparent rounded-md mt-52 p-2">
             <div className="faq-heading">
-              <h2 data-aos="zoom-in" data-aos-duration="3000" className="overflow-x-hidden text-3xl font-bold mb-4 text-green-500 font-mono">
+              <h2
+                data-aos="zoom-in"
+                data-aos-duration="3000"
+                className="overflow-x-hidden text-3xl font-bold mb-4 text-green-500 font-mono"
+              >
                 Frequently Asked Questions
               </h2>
             </div>
@@ -719,8 +975,9 @@ const Home = () => {
               <div className="faq-content">
                 <p>
                   {" "}
-                  The Color Picker allows you to select or manipulate colors for the T-shirt, giving you complete control
-                  over the design's color scheme.
+                  The Color Picker allows you to select or manipulate colors for
+                  the T-shirt, giving you complete control over the design's
+                  color scheme.
                 </p>
               </div>
               <input type="checkbox" id="faq7" className="hidden" />
@@ -753,23 +1010,27 @@ const Home = () => {
           </section>
 
           {/* Try Fashionify call-to-action button*/}
-          <a
+          {/* <a
           data-aos="fade-left" data-aos-duration="3000"
             onClick={() => {
               state.intro = false;
             }}
             className="card shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
           >
-            {/* Get Started Free */}
+          
             Start Designing Free
-          </a>
+          </a> */}
 
-         
+          <a
+            onClick={handleStartDesigning}
+            className="card shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
+          >
+            Start Designing
+          </a>
 
           {/* Divider */}
           <div className="relative divider mt-24"></div>
 
-        
           {/* Footer section */}
           <footer>
             <div className="container mx-auto">
@@ -804,22 +1065,34 @@ const Home = () => {
                   </div>
                   <ul className="leading-8">
                     <li>
-                      <a onClick={() => scrollToSection('home')} className="hover:text-blue-400 cursor-pointer">
+                      <a
+                        onClick={() => scrollToSection("home")}
+                        className="hover:text-blue-400 cursor-pointer"
+                      >
                         About Us
                       </a>
                     </li>
                     <li>
-                      <a onClick={() => scrollToSection('how-it-works')} className="hover:text-blue-400 cursor-pointer">
+                      <a
+                        onClick={() => scrollToSection("how-it-works")}
+                        className="hover:text-blue-400 cursor-pointer"
+                      >
                         How it works
                       </a>
                     </li>
                     <li>
-                      <a onClick={() => scrollToSection('faq')} className="hover:text-blue-400 cursor-pointer">
+                      <a
+                        onClick={() => scrollToSection("faq")}
+                        className="hover:text-blue-400 cursor-pointer"
+                      >
                         FAQs
                       </a>
                     </li>
                     <li>
-                    <a onClick={() => scrollToSection('features')} className="hover:text-blue-400 cursor-pointer">
+                      <a
+                        onClick={() => scrollToSection("features")}
+                        className="hover:text-blue-400 cursor-pointer"
+                      >
                         Features
                       </a>
                     </li>
@@ -880,6 +1153,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            {/* Divider */}
+            <div className="relative divider mt-24"></div>
             {/*  Container for copyright and credits */}
             <div className="container mx-auto mb-10">
               <div className="-mx-4 flex flex-wrap justify-between">
@@ -887,19 +1162,12 @@ const Home = () => {
                   Copyright © 2024 | All Rights Reserved.
                 </div>
                 <div className="px-4 w-full text-center sm:w-auto sm:text-left text-xs">
-                  Made with ❤️ by
-                  Fashionify.
+                  Made with ❤️ by Fashionify.
                 </div>
               </div>
             </div>
           </footer>
         </section>
-
-
-
-
-
-
       )}
     </AnimatePresence>
   );
