@@ -445,7 +445,7 @@ const Home = () => {
               </dialog>
 
               <a
-                // href="#how-it-works"
+               
                 onClick={() => scrollToSection("how-it-works")}
                 className="flex flex-row items-center justify-center rounded-2xl border px-10 py-3 text-white text-xl hover:scale-95 text-nowrap cursor-pointer"
               >
@@ -874,13 +874,13 @@ const Home = () => {
           {/*  Frequently Asked Questions */}
           <section id="faq" className="faq bg-transparent rounded-md mt-52 p-2">
             <div className="faq-heading">
-            <p className=" text-2xl font-bold">FREQUENTLY ASKED</p>
+              <p className=" text-2xl font-bold">FREQUENTLY ASKED</p>
               <h2
                 data-aos="zoom-in"
                 data-aos-duration="3000"
                 className="mb-4 text-green-500 head-text font-mono text-4xl text-center font-extrabold"
               >
-               Do you have a question?
+                Do you have a question?
               </h2>
             </div>
             <div className="accordion">
