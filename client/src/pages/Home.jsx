@@ -239,7 +239,7 @@ const Home = () => {
 
             {/* Mockup section */}
             <div
-              className="bg-gradient-to-br from-transparent via-orange-950 to-transparent absolute left-0 mockup-code hidden lg:block xl:block -translate-x-16 translate-y-12 transition duration-1000 cursor-pointer hover:glass"
+              className="bg-gradient-to-br from-transparent via-orange-950 to-transparent absolute left-0 mockup-code hidden lg:block xl:block -translate-x-20 translate-y-8 transition duration-1000 cursor-pointer hover:glass"
               {...slideAnimation("left")}
             >
               <pre data-prefix="" className="text-opacity-60  text-white">
@@ -328,7 +328,7 @@ const Home = () => {
               {/* Modal for signup */}
               <dialog id="my_modal_1" className="modal">
                 <div className="modal-box">
-                  <header className="mb-10 flex justify-center items-center">
+                  <header className="mb-5 flex justify-center items-center">
                     {/* Logo image */}
 
                     <img
@@ -341,6 +341,7 @@ const Home = () => {
                       Fashionify.ai
                     </a>
                   </header>
+                  <p className="uppercase text-center">register now</p>
 
                   <form
                     onSubmit={handleFormSubmit}
@@ -434,7 +435,7 @@ const Home = () => {
                       </button>
                       <button
                         type="submit"
-                        className="px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-white hover:bg-green-700 "
+                        className="px-4 py-2 bg-success border border-transparent rounded-md  text-white hover:bg-green-700 "
                       >
                         Submit
                       </button>
@@ -505,14 +506,14 @@ const Home = () => {
                   <span
                     data-aos="zoom-in"
                     data-aos-duration="1000"
-                    className="text-green-500 my-3 flex items-center justify-center font-bold uppercase tracking-wider text-2xl overflow-x-hidden"
+                    className="text-green-500 my-3 flex items-center justify-center tracking-wider head-text text-center uppercase font-thin"
                   >
                     Why choose us
                   </span>
                   <h2
                     data-aos="fade-down"
                     data-aos-duration="1500"
-                    className="block w-full bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl overflow-x-hidden"
+                    className="block w-full bg-gradient-to-b from-white to-green-700 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl overflow-x-hidden"
                   >
                     Create Customized T-shirt Designs You Adore
                   </h2>
@@ -657,7 +658,7 @@ const Home = () => {
               <p
                 data-aos="zoom-in"
                 data-aos-duration="2000"
-                className="font-bold italic text-4xl text-green-500"
+                className="head-text font-extrabold text-green-500"
               >
                 How it works
               </p>
@@ -873,12 +874,13 @@ const Home = () => {
           {/*  Frequently Asked Questions */}
           <section id="faq" className="faq bg-transparent rounded-md mt-52 p-2">
             <div className="faq-heading">
+            <p className=" text-2xl font-bold">FREQUENTLY ASKED</p>
               <h2
                 data-aos="zoom-in"
                 data-aos-duration="3000"
-                className="overflow-x-hidden text-3xl font-bold mb-4 text-green-500 font-mono"
+                className="mb-4 text-green-500 head-text font-mono text-4xl text-center font-extrabold"
               >
-                Frequently Asked Questions
+               Do you have a question?
               </h2>
             </div>
             <div className="accordion">
