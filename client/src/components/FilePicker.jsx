@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import CustomButton from "./CustomButton";
 
 const FilePicker = ({ file, setFile, readFile }) => {
-  const [previewImage, setPreviewImage] = useState(localStorage.getItem("filePreview"));
+  const [previewImage, setPreviewImage] = useState(
+    localStorage.getItem("filePreview")
+  );
 
   const handleFileSubmit = () => {
     if (!file) {
@@ -41,7 +43,10 @@ const FilePicker = ({ file, setFile, readFile }) => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <label htmlFor="file-upload" className="filepicker-label hover:scale-90 flex items-center">
+        <label
+          htmlFor="file-upload"
+          className="filepicker-label hover:scale-90 flex items-center"
+        >
           Choose File
           <img
             src="./add-file.png"
@@ -57,7 +62,11 @@ const FilePicker = ({ file, setFile, readFile }) => {
       </p>
 
       {(file !== "" || previewImage) && (
-        <img src={previewImage || file} alt="" className="w-20 h-20 mt-2 rounded-xl" />
+        <img
+          src={previewImage || file}
+          alt=""
+          className="w-20 h-20 mt-2 rounded-xl"
+        />
       )}
 
       <div className="flex-grow"></div>

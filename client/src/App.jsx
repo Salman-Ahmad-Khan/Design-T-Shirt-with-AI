@@ -38,7 +38,7 @@ function App() {
                   />
                 </circle>
               </svg>
-              Loading Canvas...
+              Loading Model...
             </div>
           </div>
         }
@@ -75,7 +75,7 @@ function App() {
                   />
                 </circle>
               </svg>
-              Loading Canvas...
+              Loading Model...
             </div>
           </div>
         }

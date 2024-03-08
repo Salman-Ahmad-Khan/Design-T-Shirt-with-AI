@@ -21,7 +21,7 @@ app.use("/api/v1/dalle", dalleRoutes);
 
 // Default route
 app.get('/', (req, res) => {
-  res.status(200).json({ message: "Welcome to DALL.E's T-shirt Design Service. Let your creativity flourish!" });
+  res.status(200).json({ message: "Welcome to Fashionify's T-shirt Design Service. Let your creativity flourish!" });
 });
 
 // Error handling middleware

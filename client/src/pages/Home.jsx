@@ -239,7 +239,7 @@ const Home = () => {
 
             {/* Mockup section */}
             <div
-              className="bg-gradient-to-br from-transparent via-orange-950 to-transparent absolute left-0 mockup-code hidden lg:block xl:block -translate-x-20 translate-y-8 transition duration-1000 cursor-pointer hover:glass"
+              className="bg-gradient-to-br from-transparent via-orange-950 to-transparent absolute left-0 mockup-code hidden lg:block xl:block -translate-x-20 translate-y-10 transition duration-1000 cursor-pointer hover:glass"
               {...slideAnimation("left")}
             >
               <pre data-prefix="" className="text-opacity-60  text-white">
@@ -336,7 +336,7 @@ const Home = () => {
                       alt="logo"
                       className="w-10 object-contain"
                     />
-                    {/* Link to home page */}
+                    
                     <a className="logo text-2xl font-thin text-white cursor-pointer">
                       Fashionify.ai
                     </a>
@@ -445,7 +445,6 @@ const Home = () => {
               </dialog>
 
               <a
-               
                 onClick={() => scrollToSection("how-it-works")}
                 className="flex flex-row items-center justify-center rounded-2xl border px-10 py-3 text-white text-xl hover:scale-95 text-nowrap cursor-pointer"
               >
@@ -609,32 +608,7 @@ const Home = () => {
               </section>
             </div>
 
-            {/* Try Fashionify call-to-action button*/}
-
-            {/* <a data-aos="fade-right"
-              onClick={() => {
-                state.intro = false;
-              }}
-              className="card mt-30 w-fit flex flex-row items-center justify-center gap-x-2 rounded-lg text-white px-10 py-3 hover:scale-95  cursor-pointer text-xl mt-20"
-              
-            >
-              <svg
-                className="h-[30px] text-white"
-                stroke="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 64 64"
-                strokeWidth={3}
-                fill="none"
-              >
-                <path d="M14,39.87,24.59,50.51s33-14,31.23-42.29C55.82,8.22,29.64,4.28,14,39.87Z" />
-                <path d="M44.69,9.09a12.3,12.3,0,0,0,3.48,6.73,12.31,12.31,0,0,0,7,3.52" />
-                <circle cx="39.46" cy="24.56" r="6.2" />
-                <path d="M14.89,37.82l-5.3.68a.27.27,0,0,1-.28-.37l3.93-9a2.65,2.65,0,0,1,1.88-1.53l6.59-1.38" />
-                <path d="M26.55,49.4l-.69,5.3a.27.27,0,0,0,.37.28l9-3.92a2.69,2.69,0,0,0,1.53-1.89l1.38-6.59" />
-                <path d="M22.21,48.13c-2.37,7.41-14.1,7.78-14.1,7.78S8,44.51,15.76,41.67" />
-              </svg>
-              Launch Editor
-            </a> */}
+           
 
             <a
               onClick={handleStartDesigning}
@@ -672,8 +646,14 @@ const Home = () => {
                       <motion.div className="h-full w-1 bg-gray-200 pointer-events-none"></motion.div>
                     </motion.div>
                     {/* Step number */}
-                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 inline-flex items-center justify-center bg-gradient-to-br from-transparent via-green-500 to-transparent text-white relative z-10 font-bold text-2xl">
-                      1
+                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 inline-flex items-center justify-center bg-current text-white relative z-10 font-bold text-2xl">
+                    <img
+                          src="./down.png"
+                          alt="aiprompt"
+                          loading="lazy"
+                          className="w-8 object-contain overflow-x-hidden"
+                         
+                        />
                     </motion.div>
                     {/* Step content  */}
                     <motion.div className="flex-grow pl-6 flex sm:items-center items-start flex-col sm:flex-row">
@@ -717,8 +697,14 @@ const Home = () => {
                       <motion.div className="h-full w-1 bg-gray-200 pointer-events-none"></motion.div>
                     </motion.div>
                     {/* Step number */}
-                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-gradient-to-bl from-transparent via-green-500 to-transparent text-white relative z-10 title-font font-bold text-2xl">
-                      2
+                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-current text-white relative z-10 title-font font-bold text-2xl">
+                    <img
+                          src="./down.png"
+                          alt="aiprompt"
+                          loading="lazy"
+                          className="w-8 object-contain overflow-x-hidden"
+                         
+                        />
                     </motion.div>
                     <motion.div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                       {/* Icon for the step  */}
@@ -759,8 +745,14 @@ const Home = () => {
                       <motion.div className="h-full w-1 bg-gray-200 pointer-events-none"></motion.div>
                     </motion.div>
                     {/* Step number */}
-                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-gradient-to-br from-transparent via-green-500 to-transparent text-white relative z-10 title-font font-bold text-2xl">
-                      3
+                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-current text-white relative z-10 title-font font-bold text-2xl">
+                    <img
+                          src="./down.png"
+                          alt="aiprompt"
+                          loading="lazy"
+                          className="w-8 object-contain overflow-x-hidden"
+                         
+                        />
                     </motion.div>
                     <motion.div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                       {/* Icon for the step  */}
@@ -801,8 +793,14 @@ const Home = () => {
                       <motion.div className="h-full w-1 bg-gray-200 pointer-events-none"></motion.div>
                     </motion.div>
                     {/* Step number */}
-                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-gradient-to-bl from-transparent via-green-500 to-transparent text-white relative z-10 title-font font-bold text-2xl">
-                      4
+                    <motion.div className="flex-shrink-0 w-10 h-10 rounded mt-10 sm:mt-0 inline-flex items-center justify-center bg-current text-white relative z-10 title-font font-bold text-2xl">
+                    <img
+                          src="./check.png"
+                          alt="aiprompt"
+                          loading="lazy"
+                          className="w-8 object-contain overflow-x-hidden"
+                         
+                        />
                     </motion.div>
                     <motion.div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                       {/* Icon for the step  */}
@@ -852,16 +850,7 @@ const Home = () => {
               one-of-a-kind T-shirt!
             </p>
 
-            {/* Try Fashionify call-to-action button*/}
-            {/* <a
-            data-aos="fade-right" data-aos-duration="2500"
-              onClick={() => {
-                state.intro = false;
-              }}
-              className="card w-fit flex flex-row items-center justify-center gap-x-2 rounded-lg text-white px-10 py-3 hover:scale-95  cursor-pointer text-xl"
-            >
-              Get Started Free
-            </a> */}
+           
 
             <a
               onClick={handleStartDesigning}
@@ -1011,17 +1000,7 @@ const Home = () => {
             </div>
           </section>
 
-          {/* Try Fashionify call-to-action button*/}
-          {/* <a
-          data-aos="fade-left" data-aos-duration="3000"
-            onClick={() => {
-              state.intro = false;
-            }}
-            className="card shadow-2xl flex flex-row items-center justify-center gap-x-2 rounded-2xl text-white px-10 py-3 hover:scale-95 cursor-pointer text-xl text-nowrap"
-          >
           
-            Start Designing Free
-          </a> */}
 
           <a
             onClick={handleStartDesigning}
