@@ -3,9 +3,9 @@
  ![#f03c15](https://www.iconsdb.com/icons/download/color/f03c15/circle-16.png)
  ![#c5f015](https://www.iconsdb.com/icons/download/color/c5f015/circle-16.png) 
  ![#1589F0](https://www.iconsdb.com/icons/download/color/1589F0/circle-16.png)
-# Fashionify AI
+# Design T-Shirt with AI
 
-[FashionifyAI](https://fashionifyai.netlify.app/)
+[Design T-Shirt with AI](https://tshirt-desin.netlify.app)
 
 
 # Design T-Shirt with AI
@@ -18,7 +18,7 @@ Design T-Shirt with AI is an innovative platform that transforms creative ideas 
   
 - **Fully Unique Designs**: Each design created on Fashionify is fully unique, tailored to your preferences and specifications.
   
-- **Create Your Style**: With Fashionify.ai, you have the power to create your style effortlessly. Whether you're looking for all-over designs or front-focused ones, Fashionify has got you covered.
+- **Create Your Style**: With Design T-Shirt with AI, you have the power to create your style effortlessly. Whether you're looking for all-over designs or front-focused ones, Design T-Shirt with AI has got you covered.
   
 - **Easy Customization**: Designing your T-Shirt is as easy as a few clicks. Our user-friendly interface allows you to upload your artwork, choose colors, and make design decisions with ease.
   
@@ -28,7 +28,7 @@ Design T-Shirt with AI is an innovative platform that transforms creative ideas 
 
 ## Get Started
 
-To get started with Fashionify.ai, simply visit [FashionifyAI](https://fashionifyai.netlify.app/) and begin the design process. No signups or credit cards required. Just let your creativity flow and create the T-Shirt design of your dreams.
+To get started with Design T-Shirt with AI, simply visit [Design T-Shirt with AI](https://tshirt-desin.netlify.app) and begin the design process. No signups or credit cards required. Just let your creativity flow and create the T-Shirt design of your dreams.
 
 ## Usage
 
