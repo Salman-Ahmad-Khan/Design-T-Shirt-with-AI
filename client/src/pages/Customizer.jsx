@@ -88,6 +88,7 @@ const Customizer = () => {
       const response = await fetch(
         "https://fashionifyai.onrender.com/api/v1/dalle",
         {
+
           // const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
           headers: {
@@ -98,6 +99,8 @@ const Customizer = () => {
           }),
         }
       );
+
+    
 
       const data = await response.json();
 
@@ -176,10 +179,10 @@ const Customizer = () => {
                 onClick={() => {
                   state.intro = true;
                 }}
-                className="logo absolute z-10 top-2 left-12 cursor-pointer font-extrabold text-2xl"
+                className="logo absolute z-10 top-2 left-12 cursor-pointer font-extrabold text-2xl text-nowrap"
                 style={{ color: snap.color }}
               >
-                Fashionify.ai
+                Design T-Shirt
               </a>
             </motion.div>
 
@@ -321,7 +324,7 @@ const Customizer = () => {
                 }}
                 className="hover:underline"
               >
-                Fashionify.ai &nbsp;
+               Design T-Shirt &nbsp;
               </a>
               © 2024 All Rights Reserved
               <a

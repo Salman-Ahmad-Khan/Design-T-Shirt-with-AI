@@ -178,7 +178,7 @@ const Home = () => {
               }}
               className="logo absolute top-2 left-12 text-2xl font-extrabold text-white cursor-pointer"
             >
-              Fashionify.ai
+              Design T-Shirt
             </a>
           </header>
 
@@ -253,7 +253,7 @@ const Home = () => {
               </pre>
 
               <pre data-prefix="✅" className="text-accent">
-                <code>Create your style with Fashionify.ai</code>
+                <code>Create your style with Design T-Shirt with AI</code>
               </pre>
               <pre data-prefix="✅" className="text-secondary">
                 <code>Select all over or front </code>
@@ -274,9 +274,9 @@ const Home = () => {
               </pre>
               {/* Divider */}
               <div className="divider"></div>
-              {/* Try Fashionify call-to-action button*/}
+              {/* Try Design T-Shirt with AI call-to-action button*/}
               <pre data-prefix="" className="text-info">
-                <code>Try Fashionify now and</code>
+                <code>Try Design T-Shirt with AI now and</code>
               </pre>
               <pre data-prefix="" className="text-orange-500">
                 <code>Apply your own design decisions!</code>
@@ -291,7 +291,7 @@ const Home = () => {
               {/* Main content text paragraph */}
 
               <span className=" max-w-lg text-center text-2xl  text-gray-400">
-                Fashionify transforms your creative ideas into stylish, wearable
+                Design T-Shirt with AI transforms your creative ideas into stylish, wearable
                 T-Shirt designs with cutting-edge{" "}
                 <span className="before:block before:absolute before:-inset-0.5 before:-skew-y-3 before:bg-pink-700 relative inline-block">
                   <span className="relative text-gray-300">AI-driven 3D</span>{" "}
@@ -303,7 +303,7 @@ const Home = () => {
               </span>
             </motion.div>
 
-            {/* Try Fashionify call-to-action button*/}
+            {/* Try Design T-Shirt with AI call-to-action button*/}
             <motion.div
               className="mt-10 mb-20 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-0 sm:gap-x-4"
               {...headContentAnimation}
@@ -338,7 +338,7 @@ const Home = () => {
                     />
                     
                     <a className="logo text-2xl font-thin text-white cursor-pointer">
-                      Fashionify.ai
+                      Design T-Shirt with AI
                     </a>
                   </header>
                   <p className="uppercase text-center">register now</p>
@@ -575,7 +575,7 @@ const Home = () => {
                     </h3>
                     {/* Feature description */}
                     <p className="my-4 mb-0 font-normal leading-relaxed tracking-wide text-gray-300">
-                      Our AI at Fashionify converts your concepts into
+                      Our AI at Design T-Shirt with AI converts your concepts into
                       personalized t-shirt designs, prepared for wear.
                     </p>
                   </div>
@@ -1026,11 +1026,11 @@ const Home = () => {
                     className="w-16 object-contain bg-white rounded"
                   />
                   <a href="/" className="logo block w-56 mb-5 text-3xl">
-                    Fashionify
+                    Design T-Shirt
                   </a>
                   {/* Company description */}
                   <p className="text-justify">
-                    Fashionify revolutionizes your creative concepts into
+                    Design T-Shirt with AI revolutionizes your creative concepts into
                     fashionable, personalized designs using advanced AI
                     technology. Explore clothing that reflects your individual
                     style, crafted effortlessly.
@@ -1097,7 +1097,7 @@ const Home = () => {
                         aria-label="Contact us via email"
                         id="emailLink"
                       >
-                        contact@Fashionify.ai
+                        contact@tshirt-desin
                       </a>
                     </li>
                   </ul>
@@ -1143,7 +1143,7 @@ const Home = () => {
                   Copyright © 2024 | All Rights Reserved.
                 </div>
                 <div className="px-4 w-full text-center sm:w-auto sm:text-left text-xs">
-                  Made with ❤️ by Fashionify.
+                  Made with ❤️ by Design T-Shirt with AI.
                 </div>
               </div>
             </div>
