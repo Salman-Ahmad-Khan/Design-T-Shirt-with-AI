@@ -8,9 +8,9 @@
 [FashionifyAI](https://fashionifyai.netlify.app/)
 
 
-# Fashionify.ai
+# Design T-Shirt with AI
 
-Fashionify.ai is an innovative platform that transforms creative ideas into stylish, wearable T-Shirt designs using cutting-edge AI-driven 3D customization. With Fashionify, discover fashion that's uniquely yours, free of charge, without the need for signups or credit cards.
+Design T-Shirt with AI is an innovative platform that transforms creative ideas into stylish, wearable T-Shirt designs using cutting-edge AI-driven 3D customization. With Fashionify, discover fashion that's uniquely yours, free of charge, without the need for signups or credit cards.
 
 ## Key Design Features
 
@@ -39,14 +39,14 @@ To get started with Fashionify.ai, simply visit [FashionifyAI](https://fashionif
 
 ## Contributing
 
-We welcome contributions from the community to improve Fashionify.ai. If you have any ideas, suggestions, or bug fixes, feel free to open an issue or submit a pull request.
+We welcome contributions from the community to improve Design T-Shirt with AI. If you have any ideas, suggestions, or bug fixes, feel free to open an issue or submit a pull request.
 
 ## License
 
-Fashionify.ai is licensed under the [MIT License](LICENSE).
+Design T-Shirt with AI is licensed under the [MIT License](LICENSE).
 
 ---
 
-Experience fashion like never before with Fashionify.ai. Get started today and turn your creative ideas into stylish, wearable designs!
+Experience fashion like never before with Design T-Shirt with AI. Get started today and turn your creative ideas into stylish, wearable designs!
 
 
